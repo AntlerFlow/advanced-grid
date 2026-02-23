@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
  * @param <T> the type of items contained in the grid
  */
 @Tag("af-advanced-grid")
-@JsModule("./advanced-grid.ts")
+@JsModule("./antlerflow/advanced-grid/advanced-grid.ts")
 public class AdvancedGrid<T> extends Component implements HasComponents, HasSize, HasStyle {
 
     @Getter private Grid<T> innerGrid;

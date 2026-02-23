@@ -16,7 +16,7 @@ import org.vaadin.addons.antlerflow.grid.layout.MainLayout;
 import org.vaadin.addons.antlerflow.grid.model.Person;
 import org.vaadin.addons.antlerflow.grid.service.PersonService;
 
-@Route(value = "basic-usage", layout = MainLayout.class)
+@Route(value = "", layout = MainLayout.class)
 @Menu(order = 0, title = "Basic Usage")
 public class BasicUsageView extends VerticalLayout {
 

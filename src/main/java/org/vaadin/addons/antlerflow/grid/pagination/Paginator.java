@@ -6,7 +6,7 @@ import com.vaadin.flow.shared.Registration;
 import lombok.Getter;
 
 @Tag("af-paginator")
-@JsModule("./pagination/paginator.ts")
+@JsModule("./antlerflow/advanced-grid/pagination/paginator.ts")
 public class Paginator extends Component {
     public static final String PAGE_CHANGE_EVENT = "page-change";
 
@@ -43,7 +43,9 @@ public class Paginator extends Component {
 
     @Synchronize(PAGE_CHANGE_EVENT)
     public int getOffset() {
-        return getElement().getProperty("offset", 0);
+        int page = getPage();       // 1-based
+        int pageSize = getPageSize();
+        return Math.max(0, (page - 1) * pageSize);
     }
 
     @Synchronize(PAGE_CHANGE_EVENT)

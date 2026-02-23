@@ -7,6 +7,7 @@ import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.provider.ListDataProvider;
 import com.vaadin.flow.router.Menu;
+import com.vaadin.flow.router.PreserveOnRefresh;
 import com.vaadin.flow.router.Route;
 import org.vaadin.addons.antlerflow.grid.AdvancedGrid;
 import org.vaadin.addons.antlerflow.grid.exporter.ExportSize;
@@ -21,6 +22,7 @@ import software.xdev.vaadin.grid_exporter.GridExporterProvider;
 
 import java.util.List;
 
+@PreserveOnRefresh
 @Route(value = "pagination", layout = MainLayout.class)
 @Menu(order = 1, title = "Pagination")
 public class PaginationView extends VerticalLayout {

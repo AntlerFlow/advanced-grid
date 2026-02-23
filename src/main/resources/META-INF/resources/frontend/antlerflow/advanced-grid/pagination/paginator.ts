@@ -186,14 +186,14 @@ export class Paginator extends LitElement {
         return out;
     }
 
-    public get offset(): number {
+    public get computedOffset(): number {
         return (this.clampPage(this.page) - 1) * this.normalizePageSize(this.pageSize);
     }
 
     private get range(): { from: number; to: number; total: number } {
         const total = this.normalizeTotalItems(this.totalItems);
         const size = this.normalizePageSize(this.pageSize);
-        const offset = this.offset;
+        const offset = this.computedOffset;
 
         if (total === 0) return {from: 0, to: 0, total};
 
@@ -249,7 +249,7 @@ export class Paginator extends LitElement {
 
                     <div class="page-buttons" part="page-buttons">
                         ${this.hideEdges ? nothing : html`
-                            <button class="page-button" part="page-button"
+                            <button class="page-button first-page" part="page-button"
                                     ?disabled=${this.disabled || isFirst}
                                     @click=${this.onFirstClick}
                                     aria-label="First page"
@@ -257,7 +257,7 @@ export class Paginator extends LitElement {
                             </button>
                         `}
 
-                        <button class="page-button" part="page-button"
+                        <button class="page-button previous-page" part="page-button"
                                 ?disabled=${this.disabled || isFirst}
                                 @click=${this.onPrevClick}
                                 aria-label="Previous page"
@@ -265,9 +265,9 @@ export class Paginator extends LitElement {
                         </button>
 
                         ${this.model().map(item => item === '…'
-                                ? html`<span class="ellipsis" aria-hidden="true">…</span>`
+                                ? html`<span class="ellipsis" aria-hidden="true" part="ellipsis">…</span>`
                                 : html`
-                                    <button class="page-button" part="page-button"
+                                    <button class="page-button page-number" part="page-button"
                                             ?disabled=${this.disabled}
                                             data-page=${String(item)}
                                             aria-label="Page ${item}"
@@ -279,7 +279,7 @@ export class Paginator extends LitElement {
                                 `
                         )}
 
-                        <button class="page-button" part="page-button"
+                        <button class="page-button next-page" part="page-button"
                                 ?disabled=${this.disabled || isLast}
                                 @click=${this.onNextClick}
                                 aria-label="Next page"
@@ -287,7 +287,7 @@ export class Paginator extends LitElement {
                         </button>
 
                         ${this.hideEdges ? nothing : html`
-                            <button class="page-button" part="page-button"
+                            <button class="page-button last-page" part="page-button"
                                     ?disabled=${this.disabled || isLast}
                                     @click=${this.onLastClick}
                                     aria-label="Last page"

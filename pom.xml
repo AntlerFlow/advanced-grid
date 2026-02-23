@@ -6,12 +6,13 @@
 
     <groupId>org.vaadin.addons.antlerflow</groupId>
     <artifactId>advanced-grid</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.2</version>
     <name>Advanced Grid</name>
     <description>An Advanced Grid component for Vaadin</description>
 
     <properties>
         <vaadin.version>25.0.3</vaadin.version>
+        <vaadin.addon.license>Apache License 2.0</vaadin.addon.license>
         <maven.compiler.release>21</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
