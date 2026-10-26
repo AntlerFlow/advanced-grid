@@ -1,6 +1,7 @@
 package org.vaadin.addons.antlerflow.grid.view;
 
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.NumberField;
@@ -10,6 +11,7 @@ import com.vaadin.flow.router.Menu;
 import com.vaadin.flow.router.PreserveOnRefresh;
 import com.vaadin.flow.router.Route;
 import org.vaadin.addons.antlerflow.grid.AdvancedGrid;
+import org.vaadin.addons.antlerflow.grid.columns.storage.ColumnPreferenceStorage;
 import org.vaadin.addons.antlerflow.grid.exporter.ExportSize;
 import org.vaadin.addons.antlerflow.grid.exporter.GridExportConfig;
 import org.vaadin.addons.antlerflow.grid.exporter.PredefinedTitleProvider;
@@ -55,6 +57,7 @@ public class PaginationView extends VerticalLayout {
                 .setSortable(true)
                 .setResizable(true);
         advancedGrid.getInnerGrid().setAllRowsVisible(true);
+        advancedGrid.getInnerGrid().setSelectionMode(Grid.SelectionMode.MULTI);
 
         PersonFilter personFilter = new PersonFilter();
         ListDataProvider<Person> dataProvider =
@@ -104,6 +107,9 @@ public class PaginationView extends VerticalLayout {
                     }
                 });
         advancedGrid.enableExport(true);
+        // Column choices last until the browser tab is closed.
+        advancedGrid.setColumnPreferenceStorage(ColumnPreferenceStorage.sessionStorage());
+        advancedGrid.enableColumnSelection(true);
 
         advancedGrid.getPaginator().setHideEdges(true);
         advancedGrid.getPaginator().showPageJump(true);

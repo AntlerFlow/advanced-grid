@@ -23,6 +23,7 @@ public class BasicUsageView extends VerticalLayout {
     public BasicUsageView(PersonService personService) {
         setSizeFull();
         Grid<Person> grid = new Grid<>(Person.class);
+        grid.setSelectionMode(Grid.SelectionMode.MULTI);
         grid.setItems(personService.generatePeople(500));
 
         PersonFilter personFilter = new PersonFilter();
@@ -55,6 +56,7 @@ public class BasicUsageView extends VerticalLayout {
 
         AdvancedGrid<Person> advancedGrid = new AdvancedGrid<>(grid);
         advancedGrid.enableExport(true);
+        advancedGrid.enableColumnSelection(true);
 
         advancedGrid.addToFilters(
                 nameFilterField, agelessEqualFilterField, ageGreaterEqualFilterField);

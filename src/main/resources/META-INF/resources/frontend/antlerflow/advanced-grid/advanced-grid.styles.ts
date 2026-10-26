@@ -18,6 +18,11 @@ export const advancedGridStyles = css`
         box-sizing: border-box;
     }
 
+    /* Empty sections are removed from the flow so the container gap adds no space. */
+    .toolbar[hidden], .footer[hidden] {
+        display: none;
+    }
+
     .toolbar, .custom-bar {
         display: flex;
         width: 100%;
@@ -26,7 +31,7 @@ export const advancedGridStyles = css`
         align-items: baseline;
     }
 
-    .filters, .actions {
+    .filters, .actions, .tools {
         display: flex;
         gap: 0.5em;
         align-items: baseline;

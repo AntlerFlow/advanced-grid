@@ -8,6 +8,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Menu;
 import com.vaadin.flow.router.Route;
 import org.vaadin.addons.antlerflow.grid.AdvancedGrid;
+import org.vaadin.addons.antlerflow.grid.columns.storage.JdbcColumnPreferenceStorage;
 import org.vaadin.addons.antlerflow.grid.dataprovider.SpringPageableDataProvider;
 import org.vaadin.addons.antlerflow.grid.filter.PersonFilter;
 import org.vaadin.addons.antlerflow.grid.layout.MainLayout;
@@ -18,7 +19,8 @@ import org.vaadin.addons.antlerflow.grid.service.PersonService;
 @Menu(order = 2, title = "With Spring Data")
 public class WithSpringDataView extends VerticalLayout {
 
-    public WithSpringDataView(PersonService personService) {
+    public WithSpringDataView(
+            PersonService personService, JdbcColumnPreferenceStorage columnPreferenceStorage) {
         setSizeFull();
         AdvancedGrid<Person> advancedGrid = new AdvancedGrid<>();
         advancedGrid
@@ -84,6 +86,9 @@ public class WithSpringDataView extends VerticalLayout {
 
         advancedGrid.setPaginationVisibility(true);
         advancedGrid.enableExport(true);
+        // Column choices are stored in the database, per user.
+        advancedGrid.setColumnPreferenceStorage(columnPreferenceStorage);
+        advancedGrid.enableColumnSelection(true);
         add(advancedGrid);
     }
 }

@@ -6,7 +6,7 @@
 
     <groupId>org.vaadin.addons.antlerflow</groupId>
     <artifactId>advanced-grid</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <name>Advanced Grid</name>
     <description>An Advanced Grid component for Vaadin</description>
 

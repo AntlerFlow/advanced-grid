@@ -13,6 +13,7 @@ import software.xdev.vaadin.grid_exporter.column.ColumnConfigurationHeaderResolv
 import software.xdev.vaadin.grid_exporter.grid.GridDataExtractor;
 import software.xdev.vaadin.grid_exporter.jasper.JasperGridExporterProvider;
 
+import java.util.Comparator;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -96,6 +97,14 @@ public class XDEVSoftwareGridExportHandler<T> implements GridExportHandler<T> {
             final Grid<T> grid,
             final DataProvider<T, ?> dataProvider,
             final GridExportConfig<T> config) {
+        if (config != null && config.getSize() == ExportSize.SELECTED) {
+            return new GridDataExtractor<>(grid) {
+                @Override
+                protected Stream<T> getSortedAndFilteredData(final Grid<T> grid) {
+                    return selectedItemsInGridOrder(grid, config);
+                }
+            };
+        }
         if (config != null && config.getSize() == ExportSize.ALL) {
             Objects.requireNonNull(dataProvider, "dataProvider must not be null");
             return new GridDataExtractor<>(grid) {
@@ -108,5 +117,20 @@ public class XDEVSoftwareGridExportHandler<T> implements GridExportHandler<T> {
             };
         }
         return new GridDataExtractor<>(grid);
+    }
+
+    /**
+     * Returns the grid's selected items, sorted like the grid when it sorts in memory, otherwise in
+     * selection order, and capped at the configured limit.
+     */
+    protected static <T> Stream<T> selectedItemsInGridOrder(
+            final Grid<T> grid, final GridExportConfig<T> config) {
+        final int limit = Optional.ofNullable(config.getLimit()).orElse(Integer.MAX_VALUE);
+        final Comparator<T> sorting = grid.getDataCommunicator().getInMemorySorting();
+        Stream<T> selected = grid.getSelectedItems().stream();
+        if (sorting != null) {
+            selected = selected.sorted(sorting);
+        }
+        return selected.limit(limit);
     }
 }
